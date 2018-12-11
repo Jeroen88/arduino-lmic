@@ -1128,6 +1128,11 @@ static bit_t decodeFrame (void) {
     if( LMIC.dnConf || (fct & FCT_MORE) )
         LMIC.opmode |= OP_POLL;
 
+    if( fct & FCT_MORE )
+        LMIC.moreData = true;
+    else
+        LMIC.moreData = false;
+
     // We heard from network
     LMIC.adrChanged = LMIC.rejoinCnt = 0;
     if( LMIC.adrAckReq != LINK_CHECK_OFF )
