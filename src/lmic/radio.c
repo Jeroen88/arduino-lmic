@@ -677,8 +677,14 @@ void radio_init () {
 #else
     hal_pin_rst(1); // drive RST pin high
 #endif
-    hal_waitUntil(os_getTime()+ms2osticks(1)); // wait >100us
-    hal_pin_rst(2); // configure RST pin floating!
+//    hal_waitUntil(os_getTime()+ms2osticks(1)); // wait >100us
+    hal_waitUntil(os_getTime()+ms2osticks(2)); // wait >100us
+//    hal_pin_rst(2); // configure RST pin floating!
+#ifdef CFG_sx1276_radio
+    hal_pin_rst(1); // drive RST pin low
+#else
+    hal_pin_rst(0); // drive RST pin high
+#endif
     hal_waitUntil(os_getTime()+ms2osticks(5)); // wait 5ms
 
     opmode(OPMODE_SLEEP);
